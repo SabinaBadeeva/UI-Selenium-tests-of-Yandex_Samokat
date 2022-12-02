@@ -3,6 +3,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.sql.Driver;
@@ -29,15 +30,16 @@ public class OrderPage {
     private By addressField = By.xpath(".//div/div[2]/div[2]/div[3]/input");
     // локаторы поля  «Станция метро»
     private By metroStationSelect = By.xpath(".//input[@placeholder = '* Станция метро']");
-    private By metroStList = By.xpath(".//li");
+    private By metroStList = By.tagName("li");
     private By certainMetroSt = By.xpath(".//li[@data-value='3']");
+    private By certainMetroStFour = By.xpath(".//li[@data-value='4']");
 
     // локатор поля ввода «Телефон»
     private By telNumberInput = By.xpath(".//div/div[2]/div[2]/div[5]/input");
     // локатор кнопки "Далее"
     private By nextButton = By.xpath(".//*[@id='root']/div/div[2]/div[3]/button");
-
-
+   //локатор POP-UP СТАТУС ЗАКАЗА
+    private By orderPopUp = By.className("Order_ModalHeader__3FDaJ");
 
 
     //МЕТОДЫ для АВТОРИЗАЦИИ
@@ -110,14 +112,10 @@ public class OrderPage {
     private By getOrder  = By.xpath(".//*[@id='root']/div/div[2]/div[3]/button[2]");
 
     //ОЖИДАНИЕ прогрузки ДАННЫХ ЗАКАЗА
-
-
     public void waitForLoadOrderData() {
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(driver -> (driver.findElement(getOrder).getText() != null
-                && !driver.findElement(getOrder).getText().isEmpty()
-        ));
+                && !driver.findElement(getOrder).getText().isEmpty()));
     }
-
     // локатор кнопки ХОТИТЕ ОФОРМИТЬ ЗАКАЗ "ДА"
     private By buttonOrderYes = By.xpath(".//button[text()='Да']");
 
@@ -185,5 +183,28 @@ public class OrderPage {
     public void clickButtonOrderYes(){
         driver.findElement(buttonOrderYes).click();
     }
+
+    // метод для ПРОВЕРКИ СТАТУСА ЗАКАЗА
+    public void statusOfOrder(String popUpText){
+            driver.findElement(orderPopUp).getText();
+            new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.textToBePresentInElementLocated(orderPopUp, popUpText));
+        }
+
+
+
+
+    //Проверка присутствия списка метро
+    public void visibleEleMetroStation(){
+        List<WebElement> elements = driver.findElements(metroStList);
+        for (WebElement ele : elements){
+        int i = driver.findElements(metroStList).size();
+        if(i != 0)
+            System.out.println(i);
+        else
+            System.out.println("Element is not present");
+
+    }}
+
 }
 

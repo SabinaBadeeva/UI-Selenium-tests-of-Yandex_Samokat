@@ -65,12 +65,7 @@ public class LoginTest {
         orderPage.clickButtonOrderYes();
 
         //ПРОВЕРКА СТАТУСА ЗАКАЗА
-        new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.className("Order_ModalHeader__3FDaJ")));
-        String orderElement = driver.findElement(By.className("Order_ModalHeader__3FDaJ")).getText();
-        String textOrderElement = "Заказ оформлен";
-        Assert.assertTrue("Text not found!", orderElement.contains(textOrderElement));
-
+        orderPage.statusOfOrder("Заказ оформлен");
     }
 
     @After

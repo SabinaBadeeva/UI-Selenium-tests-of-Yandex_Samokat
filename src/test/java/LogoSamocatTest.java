@@ -1,16 +1,12 @@
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import java.time.Duration;
 
 
 public class LogoSamocatTest {
     public FirefoxDriver driver;
-            String currentURL = null;
             String url = "https://qa-scooter.praktikum-services.ru/order";
          public LogoSamocat logoSamocat;
     @Before
@@ -29,18 +25,16 @@ public class LogoSamocatTest {
 
     // тест проверяет, что после клика на КНОПКУ САМОКАТ переходим на ГЛАВНУЮ СТРАНИЦУ
     @Test
-    public void getPageLogoScooter()  {
+    public void getPageLogoScooter() {
         //Находимся на странице ЗАКАЗА
         driver.get(url);
-
+        // Проверяем,что ЛОГОТИП ВИДЕН и переходим на главную стр.
         logoSamocat.isDisplayedClickLogo();
-        currentURL = driver.getCurrentUrl();
-
-        String logoMain = driver.findElement(By.cssSelector("a.Header_LogoScooter__3lsAR > img")).getText();
-        String mainUrlPage = currentURL;
-        Assert.assertTrue("Element not found", mainUrlPage.contains(logoMain));
-        System.out.println(currentURL + " Мы находимся на главной странице");
-        }
+        //проверяем чатсть текста URL
+        logoSamocat.forUrlContains("praktikum");
+        //проверяем,что URL соответствует главной стр.
+        logoSamocat.urlIsUrlMaim("https://qa-scooter.praktikum-services.ru/");
+    }
     }
 
 

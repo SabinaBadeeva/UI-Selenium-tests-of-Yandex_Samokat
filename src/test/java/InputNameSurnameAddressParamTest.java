@@ -24,6 +24,7 @@ public class InputNameSurnameAddressParamTest {
     private final String metroStation;
     private final String telNumber;
     private final boolean isLoggedPass;
+    public String url = "https://qa-scooter.praktikum-services.ru/order";
 
     public InputNameSurnameAddressParamTest(String userName,String secondName,
                                             String address, String telNumber, String metroStation, Boolean isLoggedPass){
@@ -45,7 +46,7 @@ public class InputNameSurnameAddressParamTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://qa-scooter.praktikum-services.ru/order");
+        driver.get(url);
 
     }
 
@@ -62,19 +63,12 @@ public class InputNameSurnameAddressParamTest {
         orderPage.setUsername(userName);
         orderPage.setSecondNameField(secondName);
         orderPage.setAddressField(address);
-        Thread.sleep(2000);
         orderPage.choiceMetro();
         orderPage.inputTelNumber(telNumber);
-        Thread.sleep(2000);
         orderPage.setNextButton();
 
-        //Проверяем,что нашелся  элемент метро
-        List<WebElement> elements = driver.findElements(By.tagName("li"));
-        for (WebElement ele : elements) {
-            assertEquals( isLoggedPass, ele.getText().contains(metroStation));
-        }
-        if(isLoggedPass){
-            assertEquals(isLoggedPass, driver.findElements(By.xpath(".//*[@id='root']/div/div[2]/div[1]")).size() != 0);
-        }
+        //Проверяем,что присутствует  элемент метро
+        orderPage.visibleEleMetroStation();
     }
+
 }

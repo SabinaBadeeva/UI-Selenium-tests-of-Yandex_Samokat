@@ -1,15 +1,16 @@
 
 package org.example;
+import dev.failsafe.internal.util.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class MainPage {
     private WebDriver driver;
@@ -22,7 +23,7 @@ public class MainPage {
     private By orderButton = By.xpath(".//*[@id='root']/div/div[1]/div[4]/div[2]/div[5]/button");
 
     // 1.локаторы  ACCORDION BUTTON "СКОЛЬКО ЭТО СТОИТ?"
-    private By accordionButtonWhatPrice = By.xpath(".//*[@id='accordion__heading-0']");
+    public By accordionButtonWhatPrice = By.xpath(".//*[@id='accordion__heading-0']");
     private By answerQuestionWhatPrice = By.xpath(".//*[@id='accordion__panel-0']");
 
     // 2.локаторы  ACCORDION BUTTON "ХОЧУ СРАЗУ НЕСКОЛЬКО САМОКАТОВ"
@@ -53,6 +54,9 @@ public class MainPage {
     private By accordionButtonLiveFar = By.xpath(".//*[@id='accordion__heading-7']");
     private By answerButtonLiveFar =By.xpath(".//*[@id='accordion__panel-7']");
 
+    //СПИСОК ВСЕХ ЭЛЕМЕНТОВ БЛОКА ВОПРОСЫ
+     private By listAllQuestions = By.xpath("//div[@class='accordion']/div");
+
     //СКРОЛЛ СТРАНИЦЫ
     public void scrollPaigeMain() throws InterruptedException {
         WebElement element = driver.findElement
@@ -77,90 +81,117 @@ public class MainPage {
 // методы для ACCORDION COMPONENT
 
     // 1.метод для элемента "СКОЛЬКО ЭТО СТОИТ?"
-    public void clickAccordionButtonWhatPrice(){
-        driver.findElement(accordionButtonWhatPrice).click();
+    public void clickAccordionButtonWhatPrice(String dataUpperText){
+         driver.findElement(accordionButtonWhatPrice).click();
+        driver.findElement(accordionButtonWhatPrice).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonWhatPrice, dataUpperText));
     }
-    public void getAnswerQuestionWhatPrice (){
-        driver.findElement(answerQuestionWhatPrice).getText();
+    public void getAnswerQuestionWhatPrice (String dataText){
+      driver.findElement(answerQuestionWhatPrice).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(answerQuestionWhatPrice, dataText));
     }
-    public void accordionButtonWhatPriceGetText(){
-        clickAccordionButtonWhatPrice();
-        getAnswerQuestionWhatPrice();
-    }
+
+
+
     // 2.метод для элемента "ХОЧУ НЕСКОЛЬКО САМОКАТОВ"
-    public void clickAccordionButtonWantSome(){driver.findElement(accordionButtonWantSome).click();}
-    public void getAnswerButtonWantSome(){driver.findElement(answerButtonWantSome).getText();}
-    public void accordionButtonWantSomeGetText(){
-        clickAccordionButtonWantSome();
-        getAnswerButtonWantSome();
+    public void clickAccordionButtonWantSome(String dataUpperTextTwo){
+        WebElement el = driver.findElement(accordionButtonWantSome);
+        el.click();
+        el.getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonWantSome, dataUpperTextTwo));
     }
+    public void getAnswerButtonWantSome(String dataTextTwo){driver.findElement(answerButtonWantSome).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(answerButtonWantSome, dataTextTwo));
+    }
+
 
     // 3.метод для элемента "КАК РАССЧИТЫВАЕТСЯ ВРЕМЯ АРЕНДЫ?"
-    public void clickAccordionButtonTimeRental(){
+    public void clickAccordionButtonTimeRental(String dataUpperTextThree){
         driver.findElement(accordionButtonTimeRental).click();
+        driver.findElement(accordionButtonTimeRental).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonTimeRental, dataUpperTextThree));
     }
-    public void getAnswerButtonTimeRental(){
-        driver.findElement(answerAccordionButtonTimeRental).getText();
+    public void getAnswerButtonTimeRental(String dataTextThree){driver.findElement(answerAccordionButtonTimeRental).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(answerAccordionButtonTimeRental, dataTextThree));
     }
-    public void accordionButtonTimeRentalGetText(){
-        clickAccordionButtonTimeRental();
-        getAnswerButtonTimeRental();
-    }
+
+
 
     // 4.метод для элемента "МОЖНО ЗАКАЗАТЬ САМОКАТ СЕГОДНЯ"
-    public void clickAccordionButtonGetOrderNow(){
+    public void clickAccordionButtonGetOrderNow(String dataUpperTextFour){
         driver.findElement(accordionButtonGetOrderNow).click();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonGetOrderNow, dataUpperTextFour));
     }
-    public void getAnswerAccordionButtonGetOrderNow(){
+    public void getAnswerAccordionButtonGetOrderNow(String dataTextFour){
         driver.findElement(answerAccordionButtonGetOrderNow).getText();
-    }
-    public void accordionButtonGetOrderNowGetText(){
-        clickAccordionButtonGetOrderNow();
-        getAnswerAccordionButtonGetOrderNow();
-    }
-    // 5.метод для элемента "МОЖНО ЛИ ПРОДЛИТЬ ЗАКАЗ"
-    public void clickAccordionButtonExtendOrder(){
-        driver.findElement(accordionButtonExtendOrder).click();
-    }
-    public void getAnswerAccordionButtonExtendOrder(){
-        driver.findElement(answerAccordionButtonExtendOrder).getText();
-    }
-    public void accordionButtonExtendOrderGetText(){
-        clickAccordionButtonExtendOrder();
-        getAnswerAccordionButtonExtendOrder();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(answerAccordionButtonGetOrderNow, dataTextFour));
     }
 
+    // 5.метод для элемента "МОЖНО ЛИ ПРОДЛИТЬ ЗАКАЗ"
+    public void clickAccordionButtonExtendOrder(String dataUpperTextFive){
+        driver.findElement(accordionButtonExtendOrder).click();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonExtendOrder, dataUpperTextFive));
+    }
+    public void getAnswerAccordionButtonExtendOrder(String dataTextFive){
+        driver.findElement(answerAccordionButtonExtendOrder).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(answerAccordionButtonExtendOrder, dataTextFive));
+    }
+
+
     // 6.метод для элемента "ВЫ ПРИВОЗИТЕ ЗАРЯДКУ ВМЕСТЕ С САМОКАТОМ?"
-    public void clickAccordionButtonChargeWithScooter(){
+    public void clickAccordionButtonChargeWithScooter(String dataUpperTextSix){
         driver.findElement(accordionButtonChargeWithScooter).click();
+        WebElement web = new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(accordionButtonChargeWithScooter));
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(answerButtonChargeWithScooter, dataUpperTextSix));
     }
-    public void getAnswerButtonChargeWithScooter(){
+    public void getAnswerButtonChargeWithScooter(String dataTextSix){
         driver.findElement(answerButtonChargeWithScooter).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(answerButtonChargeWithScooter, dataTextSix));
     }
-    public void accordionButtonChargeWithScooter(){
-        clickAccordionButtonChargeWithScooter();
-        getAnswerButtonChargeWithScooter();
-    }
+
+
     // 7.метод для элемента "МОЖНО ЛИ ОТМЕНИТЬ ЗАКАЗ"
-    public void clickAccordionButtonCancelOrder(){
+    public void clickAccordionButtonCancelOrder(String  dataUpperTextSeven){
         driver.findElement(accordionButtonCancelOrder).click();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonCancelOrder, dataUpperTextSeven));
     }
-    public void getAnswerAccordionButtonCancelOrder(){
+    public void getAnswerAccordionButtonCancelOrder(String dataTextSeven){
         driver.findElement(answerButtonCancelOrder).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(answerButtonCancelOrder, dataTextSeven));
     }
-    public void accordionButtonCancelOrderGetText(){
-        clickAccordionButtonCancelOrder();
-        getAnswerAccordionButtonCancelOrder();
-    }
+
     // 8.метод для элемента "Я ЖИВУ ЗА МКАДОМ, ПРИВЕЗЁТЕ"
-    public void clickAccordionButtonLiveFar(){
+    public void clickAccordionButtonLiveFar(String dataUpperTextEight){
         driver.findElement(accordionButtonLiveFar).click();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonLiveFar, dataUpperTextEight));
     }
-    public void getAnswerAccordionButtonLiveFar(){
+    public void getAnswerAccordionButtonLiveFar(String dataTextEight){
         driver.findElement(answerButtonLiveFar).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.textToBePresentInElementLocated(answerButtonLiveFar, dataTextEight));
     }
-    public void accordionButtonLiveFarGetText(){
-        clickAccordionButtonLiveFar();
-        getAnswerAccordionButtonLiveFar();
+
+    public void questionAllListElements() {
+        //проверить НАЛИЧИЕ ВСЕХ ВОПРОСОВ
+        List<WebElement> allElements = driver.findElements(listAllQuestions);
+        for (WebElement elem : allElements) {
+            System.out.println(elem.getText());
+        }
     }
 }
