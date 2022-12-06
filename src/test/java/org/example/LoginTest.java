@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static org.junit.Assert.assertTrue;
+
 public class LoginTest {
 
     public org.example.OrderPage orderPage;
@@ -37,7 +39,7 @@ public class LoginTest {
 
 
     @Test // Тестовый сценарий для "ЗАКАЗ САМОКАТА"
-    public void orderAuthorisationTest() throws InterruptedException {
+    public void orderAuthorisationTest()  {
         //Нажать на кнопку ЗАКАЗАТЬ ВВЕРХУ HEADER
         orderPage.pushButtonHeader();
         //АВТОРИЗАЦИЯ
@@ -65,8 +67,7 @@ public class LoginTest {
         orderPage.clickButtonOrderYes();
 
         //ПРОВЕРКА СТАТУСА ЗАКАЗА
-        orderPage.statusOfOrder("Заказ оформлен");
-    }
+        orderPage.statusOfOrder("Заказ оформлен");}
 
     @After
     public void quitDriver() {

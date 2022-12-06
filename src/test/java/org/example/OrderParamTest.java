@@ -1,4 +1,5 @@
 package org.example;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,7 @@ import java.time.Duration;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class OrderParamTest {
@@ -34,7 +36,7 @@ public class OrderParamTest {
     }
 
     @Before
-    public void openOrderPage() throws InterruptedException {
+    public void openOrderPage() {
         //System.setProperty("webdriver.chrome.driver","C:\\tools\\chromedriver\\chromedriver.exe");
         //driver = new ChromeDriver();
         System.setProperty("webdriver.geckodriver.driver", "C:\\tools\\geckodriver\\geckodriver.exe");
@@ -48,6 +50,9 @@ public class OrderParamTest {
         //Нажать на кнопку ЗАКАЗАТЬ №2
         //Предварительный СКРОЛЛ СТРАНИЦЫ
         mainPage.scrollPaigeMain();
+        // Ожидание загрузки
+        mainPage.seeAccordionButtonWhat();
+        //Нажать на кнопку Заказать(Нижняя)
         orderPage.pushOrderButtonTwo();
         //АВТОРИЗАЦИЯ
         orderPage.login("Сабина","Бадеева","Охотный ряд");
@@ -63,21 +68,33 @@ public class OrderParamTest {
     @Parameterized.Parameters
     public static Object[][] getOrderData() {
         return new Object[][]{
-                {"12.10.2022", "три дня", "чёрный жемчуг", "Привезти к 12", true},
-        {"31.02.2023", "три дня", "чёрный жемчуг", "Привезти к 12", false},
-        {"30.12.2022", "два дня", "серая безысходность", "Get to 18",true},
+                {"12.10.2022", "четверо суток", "чёрный жемчуг", "Привезти к 12", true},
+        {"30.12.2022", "четверо суток", "чёрный жемчуг", "Get to 18",true},
     };
     }
 
     @Test
-    public void fillOrderField() throws InterruptedException {
+    public void fillOrderField()  {
+        //заполнение данных заказа на странице "ПРО АРЕНДУ"
         orderPage.choiceDataString(data);
         orderPage.clickDropDownRental();
         orderPage.clickCheckBoxColorScooter();
         orderPage.commentForCourier(comment);
         //Ожидание ЗАГРУЗКИ ДАННЫХ
         orderPage.waitForLoadOrderData();
+        //клик по кнопке ЗАКАЗАТЬ
         orderPage.clickGetOrder();
-    }
+        // клик по кнопке ДА (pop-up "Хотите оформить заказ?"
+        orderPage.clickButtonOrderYes();
 
+        // проверка, что видна надпись в Поп-Ап,если заказ оформлен
+        String order = orderPage.isDisplayedHeader();
+        assertTrue(order, isOrderPass);
+        //System.out.println(order);
+    }
+    @After
+    public void quitDriver() {
+        driver.manage().deleteAllCookies();
+        driver.quit();
+    }
 }

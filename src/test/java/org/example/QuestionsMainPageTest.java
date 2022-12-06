@@ -16,6 +16,9 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class QuestionsMainPageTest {
     //public  ChromeDriver driver;
     public FirefoxDriver driver;
@@ -38,7 +41,7 @@ public class QuestionsMainPageTest {
     }
 
     @Test
-    public void whatPriceScooter() throws InterruptedException {
+    public void whatPriceScooter()  {
         //СКРОЛЛ СТРАНИЦЫ и ОЖИДАНИЕ
         mainPage.scrollPaigeMain();
         //ПРОВЕРЯЕМ, что ЭЛЕМЕНТЫ СОДЕРЖАТ НУЖНЫЙ ТЕКСТ
@@ -48,7 +51,7 @@ public class QuestionsMainPageTest {
    }
 
     @Test
-    public void wantSomeScooter() throws InterruptedException {
+    public void wantSomeScooter()  {
         //  2.Элемент "ХОЧУ НЕСКОЛЬКО САМОКАТОВ?"
         //СКРОЛЛ СТРАНИЦЫ и ОЖИДАНИЕ
         mainPage.scrollPaigeMain();
@@ -58,7 +61,7 @@ public class QuestionsMainPageTest {
     }
 
     @Test
-    public void timeRentalScooter() throws InterruptedException {
+    public void timeRentalScooter()  {
         mainPage.scrollPageDown();
         //  3.Элемент "КАК РАССЧИТЫВАЕТСЯ ВРЕМЯ АРЕНДЫ?"
         mainPage.clickAccordionButtonTimeRental("Как рассчитывается время аренды?");
@@ -68,7 +71,7 @@ public class QuestionsMainPageTest {
     }
 
     @Test
-    public void getOrderNowScooter() throws InterruptedException {
+    public void getOrderNowScooter()  {
         mainPage.scrollPageDown();
         //  4.Элемент "МОЖНО ЗАКАЗАТЬ САМОКАТ СЕГОДНЯ"
         mainPage.clickAccordionButtonGetOrderNow("Можно ли заказать самокат прямо на сегодня?");
@@ -76,7 +79,7 @@ public class QuestionsMainPageTest {
     }
 
     @Test
-    public void extendOrderScooter() throws InterruptedException {
+    public void extendOrderScooter()  {
         mainPage.scrollPageDown();
         // 5.Элемент "МОЖНО ЛИ ПРОДЛИТЬ ЗАКАЗ"
         mainPage.clickAccordionButtonExtendOrder("Можно ли продлить заказ или вернуть самокат раньше?");
@@ -85,7 +88,7 @@ public class QuestionsMainPageTest {
     }
 
     @Test
-    public void chargeWithScooter() throws InterruptedException {
+    public void chargeWithScooter() {
         //  СКРОЛЛ СТРАНИЦЫ
         mainPage.scrollPageMainDown();
         // 6.Элемент ВЫ ПРИВОЗИТЕ ЗАРЯДКУ?
@@ -94,7 +97,7 @@ public class QuestionsMainPageTest {
     }
 
     @Test
-    public void cancelOrderScooter() throws InterruptedException {
+    public void cancelOrderScooter()  {
         //  СКРОЛЛ СТРАНИЦЫ
         mainPage.scrollPageMainDown();
         // 7.Элемент "МОЖНО ЛИ ОТМЕНИТЬ ЗАКАЗ"
@@ -103,7 +106,7 @@ public class QuestionsMainPageTest {
     }
 
     @Test
-    public void questionAboutLiveFar() throws InterruptedException {
+    public void questionAboutLiveFar()  {
         //  СКРОЛЛ СТРАНИЦЫ
         mainPage.scrollPageMainDown();
         // 8.Элемент "Я ЖИВУ ЗА МКАДОМ, ПРИВЕЗЁТЕ"
@@ -113,11 +116,17 @@ public class QuestionsMainPageTest {
 
 
     @Test
-    public void questionAllElements() {
-        //проверить НАЛИЧИЕ ВСЕХ ВОПРОСОВ
-        mainPage.questionAllListElements();
-    }
+    public void questionAllElements()  {
+        mainPage.scrollPageDown();
+        mainPage.seeAccordionButtonWhat();
+        //проверить, что в МАССИВЕ с ВОПРОСАМИ действительно содержится один из вопросов
+        String allQuestions =  mainPage.allElemQuestion();
+        String someQuestion =  "Можно ли отменить заказ?";
+       assertTrue(allQuestions.contains(someQuestion));
+        //System.out.println(someQuestion);
+        //System.out.println(allQuestions);
 
+    }
 
     @After
     public void quitDriver() {
