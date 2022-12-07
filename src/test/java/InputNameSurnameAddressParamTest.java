@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class InputNameSurnameAddressParamTest {
     //public  ChromeDriver driver;
     public FirefoxDriver driver;
-    public OrderPage orderPage;
+    public org.example.OrderPage orderPage;
     private final String userName;
     private final String secondName;
     private final String address;
@@ -49,23 +49,18 @@ public class InputNameSurnameAddressParamTest {
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get(url);
-
     }
 
     @Parameterized.Parameters
     public static Object[][] getPersonalData() {
         return new Object[][]{
                 {"Сабина", "Бадеева", "Санкт-Петербург, Суворовский пр.", "+79005556677", "Митино", true},
-                {"Sabina", "Badeeva", "Санкт-Петербург, Суворовский пр.", "+79005556677", "Орехово", false},
-                {"Сабина", "Бадеева", "Москва, Ленинский пр.", "+79005556677", "Измайловская", true},
-                {"Иван", "Иванов", "Москва, Охотный ряд", "abcdifg", "Преображенская", false},
-                {"Сабина", "Бадеева", "...", "+79005556677", "Улица 1905 года", false},
-
+                {"Иван", "Иванов", "Москва, Ленинский пр.", "+79001000055", "Измайловская", true},
         };
     }
 
     @Test
-    public void inputDataFields()  {
+    public void inputDataFields() {
         //клик по кнопке ЗАКАЗАТЬ (Вверху)
         orderPage.pushButtonHeader();
         orderPage.setUsername(userName);
@@ -74,18 +69,32 @@ public class InputNameSurnameAddressParamTest {
         orderPage.choiceKeysMetro(metroStation);
         orderPage.inputTelNumber(telNumber);
         orderPage.setNextButton();
+        //Ожидание ЗАГРУЗКИ ДАННЫХ
+        orderPage.waitForLoadProfileData();
+        //Аренда и выбор Самоката
+        //Выбор ДАТЫ
+        orderPage.choiceDataCalendarDeliverField("13.", "12.", "2022");
+        //Выбор ДНЯ
+        orderPage.clickDropDownRental("шестеро суток");
+        //Выбор ЦВЕТА САМОКАТА
+        orderPage.clickCheckBoxColorScooter();
+        //КОММЕНТАРИЙ
+        orderPage.fillCommentForCourier("Привезти до 12 дня");
+        //Ожидание ЗАГРУЗКИ ДАННЫХ
+        orderPage.waitForLoadOrderData();
+        //НАЖАТЬ кнопку ЗАКАЗАТЬ
+        orderPage.clickGetOrder();
+        orderPage.clickButtonOrderYes();
 
-        // Проверяем, что виден элемент с заголовком "ПРО АРЕНДУ" на следующей странице, если регистрация прошла
-        // если данные введены неверно (регистрация не прошла), тест падает
-        String header = orderPage.isDisplayedHeader();
-       assertTrue(header, isLoggedPass);
-        //System.out.println(isLoggedPass + " страница Заказа");
+        //ПРОВЕРКА СТАТУСА ЗАКАЗА
+        //  что Popup присутствует на странице и виден
+        orderPage.popUpOfOrderVisible();
+        // в окне Popup присутствует надпись "Заказ оформлен"
+        orderPage.statusOfOrder("Заказ оформлен");
     }
     @After
     public void quitThisDriver() {
         driver.manage().deleteAllCookies();
-        driver.quit();
-    }
-
+        driver.quit();}
     }
 

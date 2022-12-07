@@ -42,8 +42,9 @@ public class LogoSamocatTest {
         //проверяем, что  ЛОГОТИП есть ссылка на Главную страницу
         String mainUrlPage = currentURL;
         String logoMain = logoSamocat.logoGetLogo();
-        //System.out.println(logoMain + " ссылка ЛОГО на главную страницу");
-        //System.out.println(currentURL + " ссылка Главной страницы");
+        System.out.println(logoMain + " ссылка ЛОГО на главную страницу");
+        System.out.println(currentURL + " ссылка Главной страницы");
+
         assertEquals(logoMain,mainUrlPage);
         System.out.println(mainUrlPage.equals(logoMain) + " Мы находимся на главной странице");
     }

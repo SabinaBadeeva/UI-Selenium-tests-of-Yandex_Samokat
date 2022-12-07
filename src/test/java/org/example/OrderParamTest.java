@@ -1,5 +1,6 @@
 package org.example;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,14 +26,12 @@ public class OrderParamTest {
     private final String rental;
     private final String colorScooter;
     private final String comment;
-    private final boolean isOrderPass;
 
-    public OrderParamTest(String data,  String rental, String colorScooter, String comment, Boolean isOrderPass) {
+    public OrderParamTest(String data,  String rental, String colorScooter, String comment) {
         this.data = data;
         this.rental = rental;
         this.colorScooter = colorScooter;
         this.comment = comment;
-        this.isOrderPass = isOrderPass;
     }
 
     @Before
@@ -68,8 +67,8 @@ public class OrderParamTest {
     @Parameterized.Parameters
     public static Object[][] getOrderData() {
         return new Object[][]{
-                {"12.10.2022", "четверо суток", "чёрный жемчуг", "Привезти к 12", true},
-        {"30.12.2022", "четверо суток", "чёрный жемчуг", "Get to 18",true},
+                {"12.10.2022", "двое суток", "чёрный жемчуг", "Привезти к 12"},
+        {"30.12.2022", "четверо суток", "чёрный жемчуг", "Get to 18"},
     };
     }
 
@@ -77,7 +76,7 @@ public class OrderParamTest {
     public void fillOrderField()  {
         //заполнение данных заказа на странице "ПРО АРЕНДУ"
         orderPage.choiceDataString(data);
-        orderPage.clickDropDownRental();
+        orderPage.clickDropDownRental(rental);
         orderPage.clickCheckBoxColorScooter();
         orderPage.commentForCourier(comment);
         //Ожидание ЗАГРУЗКИ ДАННЫХ
@@ -87,10 +86,11 @@ public class OrderParamTest {
         // клик по кнопке ДА (pop-up "Хотите оформить заказ?"
         orderPage.clickButtonOrderYes();
 
-        // проверка, что видна надпись в Поп-Ап,если заказ оформлен
-        String order = orderPage.isDisplayedHeader();
-        assertTrue(order, isOrderPass);
-        //System.out.println(order);
+        //ПРОВЕРКА СТАТУСА ЗАКАЗА
+        //  что Popup присутствует на странице и виден
+        orderPage.popUpOfOrderVisible();
+        // в окне Popup присутствует надпись "Заказ оформлен"
+        orderPage.statusOfOrder("Заказ оформлен");
     }
     @After
     public void quitDriver() {

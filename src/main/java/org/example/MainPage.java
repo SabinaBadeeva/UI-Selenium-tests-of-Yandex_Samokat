@@ -64,26 +64,35 @@ public class MainPage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);}
 
     public void scrollPageMainDown() {
-        WebElement lastElement = driver.findElement
+        WebElement element = driver.findElement
                 (By.xpath(".//*[@id='accordion__heading-3']"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", lastElement);}
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);}
+    public void scrollPageDownFive() {
+        WebElement element = driver.findElement
+                (By.xpath(".//*[@id='accordion__heading-5']"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);}
     public void scrollPageDown() {
-        WebElement thirdElement = driver.findElement
-                (By.xpath(".//*[@id='accordion__heading-3']"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", thirdElement);}
+        WebElement element = driver.findElement
+                (By.xpath(".//*[@id='accordion__heading-6']"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);}
 
-// методы для ACCORDION COMPONENT
+    public void scrollPageDownLast() {
+        WebElement element = driver.findElement
+                (By.xpath(".//*[@id='accordion__heading-7']"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);}
+
+
+    // методы для ACCORDION COMPONENT
     // 1.метод для элемента "СКОЛЬКО ЭТО СТОИТ?"
     public void clickAccordionButtonWhatPrice(String dataUpperText) {
         driver.findElement(accordionButtonWhatPrice).click();
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonWhatPrice, dataUpperText));}
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonWhatPrice, dataUpperText));}
+
     public void seeAccordionButtonWhat() {
         driver.findElement(accordionButtonWhatPrice);
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(accordionButtonWhatPrice));}
     public void getAnswerQuestionWhatPrice(String dataText) {
-        driver.findElement(answerQuestionWhatPrice).getText();
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(answerQuestionWhatPrice, dataText));}
 
@@ -95,7 +104,6 @@ public class MainPage {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonWantSome, dataUpperTextTwo));}
     public void getAnswerButtonWantSome(String dataTextTwo) {
-        driver.findElement(answerButtonWantSome).getText();
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(answerButtonWantSome, dataTextTwo));}
 
@@ -106,7 +114,6 @@ public class MainPage {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonTimeRental, dataUpperTextThree));}
     public void getAnswerButtonTimeRental(String dataTextThree) {
-        driver.findElement(answerAccordionButtonTimeRental).getText();
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(answerAccordionButtonTimeRental, dataTextThree));}
 
@@ -117,7 +124,6 @@ public class MainPage {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonGetOrderNow, dataUpperTextFour));}
     public void getAnswerAccordionButtonGetOrderNow(String dataTextFour) {
-        driver.findElement(answerAccordionButtonGetOrderNow).getText();
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(answerAccordionButtonGetOrderNow, dataTextFour));}
 
@@ -127,7 +133,6 @@ public class MainPage {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonExtendOrder, dataUpperTextFive));}
     public void getAnswerAccordionButtonExtendOrder(String dataTextFive) {
-        driver.findElement(answerAccordionButtonExtendOrder).getText();
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(answerAccordionButtonExtendOrder, dataTextFive));}
 
@@ -138,9 +143,8 @@ public class MainPage {
         WebElement web = new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.elementToBeClickable(accordionButtonChargeWithScooter));
         new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.textToBePresentInElementLocated(answerButtonChargeWithScooter, dataUpperTextSix));}
+                .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonChargeWithScooter, dataUpperTextSix));}
     public void getAnswerButtonChargeWithScooter(String dataTextSix) {
-        driver.findElement(answerButtonChargeWithScooter).getText();
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(answerButtonChargeWithScooter, dataTextSix));}
 
@@ -151,7 +155,6 @@ public class MainPage {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonCancelOrder, dataUpperTextSeven));}
     public void getAnswerAccordionButtonCancelOrder(String dataTextSeven) {
-        driver.findElement(answerButtonCancelOrder).getText();
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(answerButtonCancelOrder, dataTextSeven));}
 
@@ -161,15 +164,9 @@ public class MainPage {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(accordionButtonLiveFar, dataUpperTextEight));}
     public void getAnswerAccordionButtonLiveFar(String dataTextEight) {
-        driver.findElement(answerButtonLiveFar).getText();
         new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.textToBePresentInElementLocated(answerButtonLiveFar, dataTextEight));}
+                .until(ExpectedConditions.textToBePresentInElementLocated(answerButtonLiveFar, dataTextEight));}}
 
-    //метод вывода наличия вопросов
-    public String allElemQuestion() {
-        List<WebElement> allElements = driver.findElements(listAllQuestions);
-        for (WebElement element : allElements) {
-            String question = element.getText();
-            return question;}
-        return allElemQuestion();}
-}
+
+
+

@@ -55,7 +55,7 @@ public class LoginTest {
         //Выбор ДАТЫ
         orderPage.choiceDataCalendarDeliverField("13.", "12.", "2022");
         //Выбор ДНЯ
-        orderPage.clickDropDownRental();
+        orderPage.clickDropDownRental("пятеро суток");
         //Выбор ЦВЕТА САМОКАТА
         orderPage.clickCheckBoxColorScooter();
         //КОММЕНТАРИЙ

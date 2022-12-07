@@ -62,7 +62,7 @@ public class QuestionsMainPageTest {
 
     @Test
     public void timeRentalScooter()  {
-        mainPage.scrollPageDown();
+        mainPage.scrollPageMainDown();
         //  3.Элемент "КАК РАССЧИТЫВАЕТСЯ ВРЕМЯ АРЕНДЫ?"
         mainPage.clickAccordionButtonTimeRental("Как рассчитывается время аренды?");
         mainPage.getAnswerButtonTimeRental("Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. " +
@@ -90,7 +90,7 @@ public class QuestionsMainPageTest {
     @Test
     public void chargeWithScooter() {
         //  СКРОЛЛ СТРАНИЦЫ
-        mainPage.scrollPageMainDown();
+        mainPage.scrollPageDownFive();
         // 6.Элемент ВЫ ПРИВОЗИТЕ ЗАРЯДКУ?
         mainPage.clickAccordionButtonChargeWithScooter("Вы привозите зарядку вместе с самокатом?");
         mainPage.getAnswerButtonChargeWithScooter("Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.");
@@ -99,7 +99,7 @@ public class QuestionsMainPageTest {
     @Test
     public void cancelOrderScooter()  {
         //  СКРОЛЛ СТРАНИЦЫ
-        mainPage.scrollPageMainDown();
+        mainPage.scrollPageDown();
         // 7.Элемент "МОЖНО ЛИ ОТМЕНИТЬ ЗАКАЗ"
         mainPage.clickAccordionButtonCancelOrder("Можно ли отменить заказ?");
         mainPage.getAnswerAccordionButtonCancelOrder("Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.");
@@ -108,24 +108,10 @@ public class QuestionsMainPageTest {
     @Test
     public void questionAboutLiveFar()  {
         //  СКРОЛЛ СТРАНИЦЫ
-        mainPage.scrollPageMainDown();
+        mainPage.scrollPageDownLast();
         // 8.Элемент "Я ЖИВУ ЗА МКАДОМ, ПРИВЕЗЁТЕ"
         mainPage.clickAccordionButtonLiveFar("Я жизу за МКАДом, привезёте?");
         mainPage.getAnswerAccordionButtonLiveFar("Да, обязательно. Всем самокатов! И Москве, и Московской области.");
-    }
-
-
-    @Test
-    public void questionAllElements()  {
-        mainPage.scrollPageDown();
-        mainPage.seeAccordionButtonWhat();
-        //проверить, что в МАССИВЕ с ВОПРОСАМИ действительно содержится один из вопросов
-        String allQuestions =  mainPage.allElemQuestion();
-        String someQuestion =  "Можно ли отменить заказ?";
-       assertTrue(allQuestions.contains(someQuestion));
-        //System.out.println(someQuestion);
-        //System.out.println(allQuestions);
-
     }
 
     @After

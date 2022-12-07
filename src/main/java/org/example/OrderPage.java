@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
-import java.util.List;
 
 
 public class OrderPage {
@@ -81,7 +80,8 @@ public class OrderPage {
 
     // метод ввода поля ТЕЛЕФОН
     public void inputTelNumber(String telNumber) {
-        driver.findElement(telNumberInput).sendKeys(telNumber);}
+        driver.findElement(telNumberInput).sendKeys(telNumber);
+    }
 
     //МЕТОД ожидания ЗАГРУЗКИ внесенных ДАННЫХ
     public void waitForLoadProfileData() {
@@ -101,8 +101,8 @@ public class OrderPage {
     //локаторы поля КОГДА ПРИВЕЗТИ самокат (КАЛЕНДАРЬ)
     private By whenToDeliverScooterField = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
     //локатор поля СРОК АРЕНДЫ
-    private By rentalPeriod = By.cssSelector("div.Dropdown-placeholder");
-    private By daysTime = By.xpath(".//div[text()='четверо суток']");
+    private By rentalPeriod = By.className("Dropdown-root");
+    private final String dayRental = ".//div[text()='%s']";
     //локатор выбора ЦВЕТ САМОКАТА
     private By checkBoxScooter = By.className("Order_Title__3EKne");
     private By checkBoxColor = By.xpath(".//*[@id='black']");
@@ -138,11 +138,11 @@ public class OrderPage {
     //метод выбора поля "СРОК АРЕНДЫ"
     public void setRentalPeriod() {
         driver.findElement(rentalPeriod).click();}
-    public void daysOrderChoice() {
-        driver.findElement(daysTime).click();}
-    public void clickDropDownRental() {
+    public void daysOrderChoice(String daysRental) {
+        driver.findElement(By.xpath(String.format(dayRental, daysRental))).click();}
+    public void clickDropDownRental(String daysRental) {
         setRentalPeriod();
-        daysOrderChoice();}
+        daysOrderChoice(daysRental);}
 
     //метод выбора CHECKBOX SCOOTER
     public void choiceCheckBoxScooter() {
@@ -168,19 +168,16 @@ public class OrderPage {
         driver.findElement(buttonOrderYes).click();}
 
     //  проверка СТАТУСА ЗАКАЗА
-    public String statusOfOrder(String popUpText) {
-        driver.findElement(orderPopUp).getText();
+    public void statusOfOrder(String popUpText) {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.textToBePresentInElementLocated(orderPopUp, popUpText));
-        return popUpText;}
-
-      // метод проверяет,что заголовок на СТРАНИЦЕ ЗАКАЗА сожержит текст "ПРО АРЕНДУ"
-    public String isDisplayedHeader() {
-        String textOrder = driver.findElement(aboutRental).getText();
-        new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.textToBePresentInElementLocated(aboutRental, "Про аренду"));
-        return textOrder;
     }
+
+    public void popUpOfOrderVisible(){
+    new WebDriverWait(driver, Duration.ofSeconds(5))
+            .until(ExpectedConditions. visibilityOfElementLocated(orderPopUp));
+    }
+
 }
 
 
