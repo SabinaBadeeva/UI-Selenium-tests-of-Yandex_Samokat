@@ -57,7 +57,8 @@ public class QuestionsMainPageTest {
         mainPage.scrollPaigeMain();
         //ПРОВЕРЯЕМ, что после нажатия на стрелочку каждый ЭЛЕМЕНТ СОДЕРЖИТ НУЖНЫЙ ТЕКСТ
         mainPage.clickAccordionButtonWantSome("Хочу сразу несколько самокатов! Так можно?");
-        mainPage.getAnswerButtonWantSome("Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.");
+        mainPage.getAnswerButtonWantSome("Пока что у нас так: один заказ — один самокат. Если хотите покататься 
+                                         с друзьями, можете просто сделать несколько заказов — один за другим.");
     }
 
     @Test
@@ -65,7 +66,8 @@ public class QuestionsMainPageTest {
         mainPage.scrollPageMainDown();
         //  3.Элемент "КАК РАССЧИТЫВАЕТСЯ ВРЕМЯ АРЕНДЫ?"
         mainPage.clickAccordionButtonTimeRental("Как рассчитывается время аренды?");
-        mainPage.getAnswerButtonTimeRental("Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. " +
+        mainPage.getAnswerButtonTimeRental("Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат
+                                           8 мая в течение дня. " +
                 "Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру." +
                 " Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.");
     }
@@ -93,7 +95,8 @@ public class QuestionsMainPageTest {
         mainPage.scrollPageDownFive();
         // 6.Элемент ВЫ ПРИВОЗИТЕ ЗАРЯДКУ?
         mainPage.clickAccordionButtonChargeWithScooter("Вы привозите зарядку вместе с самокатом?");
-        mainPage.getAnswerButtonChargeWithScooter("Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.");
+        mainPage.getAnswerButtonChargeWithScooter("Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — 
+                                                  даже если будете кататься без передышек и во сне. Зарядка не понадобится.");
     }
 
     @Test
@@ -102,7 +105,8 @@ public class QuestionsMainPageTest {
         mainPage.scrollPageDown();
         // 7.Элемент "МОЖНО ЛИ ОТМЕНИТЬ ЗАКАЗ"
         mainPage.clickAccordionButtonCancelOrder("Можно ли отменить заказ?");
-        mainPage.getAnswerAccordionButtonCancelOrder("Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.");
+        mainPage.getAnswerAccordionButtonCancelOrder("Да, пока самокат не привезли. Штрафа не будет, 
+                                                     объяснительной записки тоже не попросим. Все же свои.");
     }
 
     @Test
